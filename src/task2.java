@@ -1,5 +1,14 @@
 public class task2 {
     public static void main(String[] args) {
+        Trucks truck = new Trucks(2005, "Mercedes", "Actros", "Petrol", 20, 35, 10000);
+        Passenger passenger = new Passenger(2013, "MAN", "Lion`s Coach", "Petrol", 20, 61);
+
+        TruckOrder truckOrder = new TruckOrder("Lida", "Minsk", 20, 5000, "Laptop`s");
+        truckOrder.orderPath();
+        truckOrder.checkFreeLoadCapacity(truck);
+        truckOrder.checkFreeVolume(truck);
+        truckOrder.checkLoadOrder();
+        truckOrder.loadCargo(truck);
 
     }
 }
@@ -10,8 +19,16 @@ class Transport {
     String brand;
     String model;
     String typeFuel;
+    //litres for 100 kilometers - fuelRate
     int fuelRate;
 
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
 
     public Transport(int releaseYear, String brand, String model, String typeFuel, int fuelRate) {
         this.releaseYear = releaseYear;
@@ -32,18 +49,31 @@ class Transport {
     @Override
     public String toString() {
         return "Transport{" +
-                "releaseYear=" + releaseYear +
-                ", brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                ", typeFuel='" + typeFuel + '\'' +
-                ", fuelRate=" + fuelRate +
+                "brand = '" + brand + '\'' +
+                ", model = '" + model + '\'' +
+                ", releaseYear = " + releaseYear +
+                ", typeFuel = '" + typeFuel + '\'' +
+                ", fuelRate = " + fuelRate +
                 '}';
+    }
+
+    public void getInfoAboutTransport() {
+
     }
 }
 
 class Trucks extends Transport {
+    //in m^3
     int bodyVolume;
     int loadCapacity;
+
+    public int getBodyVolume() {
+        return bodyVolume;
+    }
+
+    public int getLoadCapacity() {
+        return loadCapacity;
+    }
 
     public Trucks(int releaseYear, String brand, String model, String typeFuel, int fuelRate, int bodyVolume, int loadCapacity) {
         super(releaseYear, brand, model, typeFuel, fuelRate);
@@ -79,15 +109,15 @@ class Trucks extends Transport {
             case DUMPTRUCK -> System.out.println("Dump truck needed for bulk cargoes " +
                     "and viscous liquids!");
         }
-
-
-
-
     }
 }
 
 class Passenger extends Transport {
     int passengerCapacity;
+
+    public int getPassengerCapacity() {
+        return passengerCapacity;
+    }
 
     public Passenger(int releaseYear, String brand, String model, String typeFuel, int fuelRate, int passengerCapacity) {
         super(releaseYear, brand, model, typeFuel, fuelRate);
@@ -119,6 +149,10 @@ class CargoPassenger extends Transport {
         this.loadCapacity = loadCapacity;
     }
 
+    public void tripReady() {
+        System.out.println("Ready for a long journey!");
+    }
+
     @Override
     public void reFuel() {
         System.out.println("Cargo-passenger transport was refueled!");
@@ -130,14 +164,73 @@ class CargoPassenger extends Transport {
     }
 }
 
-class truckOrder{
+//this class is common for orders
+class Order{
     String startPoint, endPoint;
-    String cargoType;
-    int volume, weight;
 
+    public Order(String startPoint, String endPoint) {
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
+    }
 
+    public void orderPath() {
+        System.out.printf("%s is start point and %s is end point! \n", startPoint, endPoint);
+    }
 
 }
+
+//this class is for creating orders for trucks
+class TruckOrder extends Order {
+    int cargoVolume, cargoWeight;
+    String cargoType;
+
+    public TruckOrder(String startPoint, String endPoint, int cargoVolume, int cargoWeight, String cargoType) {
+        super(startPoint, endPoint);
+        this.cargoVolume = cargoVolume;
+        this.cargoWeight = cargoWeight;
+        this.cargoType = cargoType;
+    }
+
+    public void loadCargo(Transport transport) {
+        System.out.printf("Load cargo in %s %s! \n", transport.getBrand(), transport.getModel());
+    }
+
+    public void unloadCargo(Transport transport) {
+        System.out.printf("Unload cargo from %s %s! \n", transport.getBrand(), transport.getModel());
+    }
+
+    public void checkFreeLoadCapacity(Trucks truck) {
+        int freeCapacity = truck.loadCapacity - cargoWeight;
+        System.out.println("Free capacity of truck is " + freeCapacity + " kilograms.");
+    }
+
+    public void checkFreeVolume(Trucks truck) {
+        int freeVolume = truck.bodyVolume - cargoVolume;
+        System.out.println("Free volume of the truck is " + freeVolume + " cubic metres.");
+    }
+
+    public void checkLoadOrder() {
+        System.out.printf("The truck is loaded with %s! \n", cargoType);
+    }
+
+}
+
+//this class if for creating orders for passenger and cargo-passenger
+class PassengerOrder extends Order {
+    int numberPassenger, numberSeats;
+
+    public PassengerOrder(String startPoint, String endPoint, int numberPassenger, int numberSeats) {
+        super(startPoint, endPoint);
+        this.numberPassenger = numberPassenger;
+        this.numberSeats = numberSeats;
+    }
+
+    public void checkFreeNumberSeats(Passenger passenger) {
+        int freeSeats = passenger.passengerCapacity - numberSeats;
+        System.out.println("Free number of seats is " + freeSeats + "!");
+    }
+}
+
 
 enum BodyType {
     TENTED,
