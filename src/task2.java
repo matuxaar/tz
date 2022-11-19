@@ -57,9 +57,7 @@ class Transport {
                 '}';
     }
 
-    public void getInfoAboutTransport() {
 
-    }
 }
 
 class Trucks extends Transport {
@@ -229,6 +227,7 @@ class PassengerOrder extends Order {
         int freeSeats = passenger.passengerCapacity - numberSeats;
         System.out.println("Free number of seats is " + freeSeats + "!");
     }
+
 }
 
 
