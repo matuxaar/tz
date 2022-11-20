@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class task1 {
@@ -12,11 +11,10 @@ public class task1 {
     }
 
     public static boolean checkWin(int numberTicket) {
-        int firstLength = 0;
-        int secondLength = 0;
+        int firstSum = 0;
+        int secondSum = 0;
         if (numberTicket % 2 == 0) {
             ArrayList<Integer> arrayList = new ArrayList<>();
-
 
             while (numberTicket != 0) {
                 arrayList.add(numberTicket % 10);
@@ -25,16 +23,15 @@ public class task1 {
 
             int n = arrayList.size();
 
-
             for (int i = 0; i < n; i++) {
                 if (i < (n + 1) / 2) {
-                    firstLength += arrayList.get(i);
+                    firstSum += arrayList.get(i);
                 } else {
-                    secondLength += arrayList.get(i);
+                    secondSum += arrayList.get(i);
                 }
             }
 
-            return firstLength == secondLength;
+            return firstSum == secondSum;
         }
         return false;
     }

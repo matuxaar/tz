@@ -1,6 +1,6 @@
 public class task2 {
     public static void main(String[] args) {
-        Trucks truck = new Trucks(2005, "Mercedes", "Actros", "Petrol", 20, 35, 10000);
+        /*Trucks truck = new Trucks(2005, "Mercedes", "Actros", "Petrol", 20, 35, 10000);
         Passenger passenger = new Passenger(2013, "MAN", "Lion`s Coach", "Petrol", 20, 61);
 
         TruckOrder truckOrder = new TruckOrder("Lida", "Minsk", 20, 5000, "Laptop`s");
@@ -9,11 +9,12 @@ public class task2 {
         truckOrder.checkFreeVolume(truck);
         truckOrder.checkLoadOrder();
         truckOrder.loadCargo(truck);
+        truck.choiceBodyType(BodyType.TENTED);*/
 
     }
 }
 
-class Transport {
+/*class Transport {
 
     int releaseYear;
     String brand;
@@ -236,4 +237,4 @@ enum BodyType {
     REFRIGERATORS,
     TANK,
     DUMPTRUCK
-}
+}*/
