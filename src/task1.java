@@ -12,8 +12,11 @@ public class task1 {
     }
 
     public static boolean checkWin(int numberTicket) {
+        int firstLength = 0;
+        int secondLength = 0;
         if (numberTicket % 2 == 0) {
             ArrayList<Integer> arrayList = new ArrayList<>();
+
 
             while (numberTicket != 0) {
                 arrayList.add(numberTicket % 10);
@@ -22,37 +25,18 @@ public class task1 {
 
             int n = arrayList.size();
 
-            int[] firstHalf = new int[(n + 1) / 2];
-            int[] secondHalf = new int[n - firstHalf.length];
 
             for (int i = 0; i < n; i++) {
-                if (i < firstHalf.length) {
-                    firstHalf[i] = arrayList.get(i);
+                if (i < (arrayList.size() + 1) / 2) {
+                    firstLength += arrayList.get(i);
                 } else {
-                    secondHalf[i - firstHalf.length] = arrayList.get(i);
+                    secondLength += arrayList.get(i);
                 }
             }
 
-            int firstSum = 0;
-            int secondSum = 0;
-
-            for (int i = 0; i < firstHalf.length; i++) {
-                firstSum += firstHalf[i];
-            }
-
-            for (int i = 0; i < secondHalf.length; i++) {
-                secondSum += secondHalf[i];
-            }
-
-            if (firstSum == secondSum) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
+            return firstLength == secondLength;
         }
-
+        return false;
     }
 }
 
