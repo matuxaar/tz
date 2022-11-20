@@ -27,7 +27,7 @@ public class task1 {
 
 
             for (int i = 0; i < n; i++) {
-                if (i < (arrayList.size() + 1) / 2) {
+                if (i < (n + 1) / 2) {
                     firstLength += arrayList.get(i);
                 } else {
                     secondLength += arrayList.get(i);
